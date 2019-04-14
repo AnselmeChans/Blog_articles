@@ -35,3 +35,17 @@ class PostAdmin(admin.ModelAdmin) :
             return Comment.objects.filter(post=obj).count()
 
         comments_count.short_description='Comments'
+
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin) : 
+    search_fields = ['post__title']
+    list_display = (
+        'post',
+        'author',
+        'text',
+        'status',
+        'moderation_text',
+        'created_at'
+    )
+
+    list_editable = ('status', 'moderation_text',)
